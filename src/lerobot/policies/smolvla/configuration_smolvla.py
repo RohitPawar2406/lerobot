@@ -27,6 +27,7 @@ from lerobot.utils.constants import OBS_IMAGES
 @PreTrainedConfig.register_subclass("smolvla")
 @dataclass
 class SmolVLAConfig(PreTrainedConfig):
+    type: str = "smolvla"
     # Input / output structure.
     n_obs_steps: int = 1
     chunk_size: int = 50
@@ -41,8 +42,8 @@ class SmolVLAConfig(PreTrainedConfig):
     )
 
     # Shorter state and action vectors will be padded
-    max_state_dim: int = 32
-    max_action_dim: int = 32
+    max_state_dim: int = 8
+    max_action_dim: int = 2
 
     # Image preprocessing
     resize_imgs_with_padding: tuple[int, int] = (512, 512)
@@ -94,7 +95,6 @@ class SmolVLAConfig(PreTrainedConfig):
     prefix_length: int = -1
 
     pad_language_to: str = "longest"  # "max_length"
-
     num_expert_layers: int = -1  # Less or equal to 0 is the default where the action expert has the same number of layers of VLM. Otherwise the expert have less layers.
     num_vlm_layers: int = 16  # Number of layers used in the VLM (first num_vlm_layers layers)
     self_attn_every_n_layers: int = 2  # Interleave SA layers each self_attn_every_n_layers
